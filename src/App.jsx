@@ -1,5 +1,14 @@
-import styles from "./app.module.css";
+import MainPage from "./pages/MainPage";
+import Catalog from "./pages/Catalog";
+import Contacts from "./pages/Contacts";
+import { Route, Routes } from "react-router-dom";
 
 export default function App() {
-  return <div className={styles.app}>App</div>;
+  return (
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/catalog" element={<Catalog />} />
+      <Route path="/contacts" element={<Contacts />} />
+    </Routes>
+  );
 }
