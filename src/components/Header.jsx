@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./header.module.css";
 
 export default function Header() {
@@ -6,15 +6,15 @@ export default function Header() {
     <header>
       <nav>
         <div className={styles.container}>
-          <Link to="/" className={styles.item}>
+          <NavLink to="/" className={styles.item}>
             Главная страница
-          </Link>
-          <Link to="/catalog" className={styles.item}>
+          </NavLink>
+          <NavLink to="/catalog" className={styles.item}>
             Каталог
-          </Link>
-          <Link to="/contacts" className={styles.item}>
+          </NavLink>
+          <NavLink to="/contacts" className={styles.item}>
             Контакты
-          </Link>
+          </NavLink>
         </div>
       </nav>
     </header>

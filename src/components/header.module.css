@@ -1,7 +1,17 @@
 .container {
+  display: flex;
+  justify-content: flex-start;
   margin: 15px;
   padding: 10px;
 }
 .item {
   margin: 0 10px;
+  font-size: 20px;
+}
+.item:hover {
+  color: red;
+}
+:global .active {
+  color: red;
+  text-decoration: underline;
 }
