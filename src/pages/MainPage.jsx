@@ -1,5 +1,9 @@
-import { Link } from "react-router-dom";
+import styles from "./mainPage.module.css";
 
 export default function MainPage() {
-  return <Link to={"/catalog"}>Каталог</Link>;
+  return (
+    <div className={styles.container}>
+      <h1>Контент главной страницы</h1>
+    </div>
+  );
 }

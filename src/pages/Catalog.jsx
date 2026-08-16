@@ -1,3 +1,9 @@
+import styles from "./catalog.module.css";
+
 export default function Catalog() {
-  return <h1>Каталог</h1>;
+  return (
+    <div className={styles.container}>
+      <h1>Каталог товаров:</h1>
+    </div>
+  );
 }
