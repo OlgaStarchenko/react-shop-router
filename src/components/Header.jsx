@@ -12,9 +12,6 @@ export default function Header() {
           <NavLink to="/catalog" className={styles.item}>
             Каталог
           </NavLink>
-          <NavLink to="/contacts" className={styles.item}>
-            Контакты
-          </NavLink>
         </div>
       </nav>
     </header>
