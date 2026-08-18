@@ -7,7 +7,9 @@ export default function Contacts() {
   return (
     <div className={styles.container}>
       <h1>Контакты:</h1>
-      <button onClick={() => navigate("/")}>Перейти на главную страницу</button>
+      <button className={styles.btn} onClick={() => navigate("/")}>
+        Перейти на главную страницу
+      </button>
     </div>
   );
 }

@@ -7,7 +7,9 @@ export default function MainPage() {
   return (
     <div className={styles.container}>
       <h1>Контент главной страницы</h1>
-      <button onClick={() => navigate("/contacts")}>Перейти в контакты</button>
+      <button className={styles.btn} onClick={() => navigate("/contacts")}>
+        Перейти в контакты
+      </button>
     </div>
   );
 }
