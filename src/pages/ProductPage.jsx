@@ -1,24 +1,49 @@
 import { useParams } from "react-router-dom";
 import styles from "./productPage.module.css";
-
-const product = (id) =>
-  ({
-    1: { id: 1, name: "Телевизор", price: 29900, amount: 15 },
-    2: { id: 2, name: "Смартфон", price: 13900, amount: 48 },
-    3: { id: 3, name: "Планшет", price: 18400, amount: 23 },
-  })[id];
+import { useEffect, useState } from "react";
 
 export default function ProductPage() {
+  const [product, setProduct] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { id } = useParams();
 
-  const { name, price, amount } = product(id);
+  useEffect(() => {
+    setError(null);
+    setIsLoading(true);
+    fetch(`http://localhost:3004/products/${id}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Ошибка загрузки");
+        }
+        return response.json();
+      })
+
+      .then((product) =>
+        setTimeout(() => {
+          setIsLoading(false);
+          setProduct(product);
+        }, 2500),
+      )
+      .catch(() => {
+        setError("Ошибка загрузки, повторите попытку");
+        setIsLoading(false);
+      });
+  }, [id]);
+
   return (
     <div className={styles.container}>
-      <ul>
-        <li className={styles.item}>Наименование товара: {name}</li>
-        <li className={styles.item}>Цена: {price} руб.</li>
-        <li className={styles.item}>На складе {amount} шт.</li>
-      </ul>
+      {isLoading ? (
+        <div className={styles.loader}>Загрузка...</div>
+      ) : error ? (
+        <div>{error}</div>
+      ) : (
+        <ul>
+          <li className={styles.item}>Наименование товара: {product.name}</li>
+          <li className={styles.item}>Цена: {product.price} руб.</li>
+          <li className={styles.item}>На складе {product.amount} шт.</li>
+        </ul>
+      )}
     </div>
   );
 }
