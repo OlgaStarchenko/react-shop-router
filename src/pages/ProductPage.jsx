@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import styles from "./productPage.module.css";
 import { useEffect, useState } from "react";
+import { getProductById } from "../api/products";
 
 export default function ProductPage() {
   const [product, setProduct] = useState(null);
@@ -10,25 +11,20 @@ export default function ProductPage() {
 
   useEffect(() => {
     setError(null);
-    setIsLoading(true);
-    fetch(`http://localhost:3004/products/${id}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Ошибка загрузки");
-        }
-        return response.json();
-      })
 
-      .then((product) =>
-        setTimeout(() => {
-          setIsLoading(false);
-          setProduct(product);
-        }, 2500),
-      )
-      .catch(() => {
-        setError("Ошибка загрузки, повторите попытку");
+    const loadedProductById = async () => {
+      try {
+        setTimeout(() => {});
+        const productById = await getProductById(id);
+        setProduct(productById);
         setIsLoading(false);
-      });
+      } catch (error) {
+        setError(error.message);
+        setIsLoading(false);
+      }
+    };
+
+    loadedProductById(id);
   }, [id]);
 
   return (

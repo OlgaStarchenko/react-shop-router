@@ -8,3 +8,6 @@
 .item {
   margin: 5px;
 }
+.error__message {
+  color: red;
+}

@@ -1,20 +1,26 @@
 import { NavLink, Outlet } from "react-router-dom";
 import styles from "./catalog.module.css";
 import { useEffect, useState } from "react";
+import { getProductsList } from "../api/products";
 
 export default function Catalog() {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3004/products")
-      .then((response) => response.json())
-      .then((products) =>
-        setTimeout(() => {
-          setIsLoading(false);
-          setProducts(products);
-        }, 2500),
-      );
+    setError(null);
+    const loadedProducts = async () => {
+      try {
+        const productsList = await getProductsList();
+        setProducts(productsList);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        setError(error.message);
+      }
+    };
+    loadedProducts();
   }, []);
 
   return (
@@ -22,6 +28,8 @@ export default function Catalog() {
       <h1 className={styles.title}>Каталог товаров:</h1>
       {isLoading ? (
         <div className={styles.loader}>Загрузка...</div>
+      ) : error ? (
+        <div className={styles.error__message}>{error}</div>
       ) : (
         <ul>
           {products.map(({ id, name }) => (
